@@ -1,5 +1,5 @@
 # Robocek Website Project
-##DEMO:-https://nandanac100.github.io/robocek-website/
+## DEMO:- https://nandanac100.github.io/robocek-website/
 ## Overview
 This project is a model website for a non-profit organization dealing with robotics-related activities under the Government College of Engineering Kannur. The website is designed to be responsive and user-friendly, providing information about the organization's events, activities, and membership opportunities.
 
