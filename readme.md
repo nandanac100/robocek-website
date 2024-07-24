@@ -24,7 +24,7 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/nandanac100/robo.git
+   git clone https://github.com/nandanac100/robocek-website.git
    ```
 2. **Navigate to the project directory**:
    ```bash
