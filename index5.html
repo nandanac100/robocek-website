@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #080808;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bolder;
+            font-size: 3rem;
+            color: #faf7f8;
+            
+        }
+
+        h1 span {
+            color: #ff004f;
+            font-size: 3.5rem;
+        }
+
+        
+        h2,
+        h3 {
+            color: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgb(25 25 25 / 88%);;
+            padding: 10px 20px;
+            border-bottom: 1px solid #333;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand img {
+            width: 150px;
+            height: 75px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #e0e0e0 !important;
+            margin-right: 15px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff004f !important;
+        }
+
+        .navbar-collapse {
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar {
+            margin-left: 20px;
+        }
+
+        .login-btn,
+        .register-btn {
+            color: #e0e0e0;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .login-btn:hover,
+        .register-btn:hover {
+            color: #ff004f;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #1f1f1f;
+            padding-top: 20px;
+            border-right: 1px solid #333;
+            transform: translateX(-250px);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 300;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar .menu-item:hover {
+            background: #333;
+            color: #ff004f;
+        }
+
+        .sidebar .menu-item i {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .sidebar .menu-item.active {
+            background: #333;
+            color: #ff004f;
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: 20px;
+            padding-top: 70px;
+            /* Adjust for navbar height */
+        }
+
+        /* Popups */
+        .modal-content {
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #444;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #444;
+        }
+
+        .btn-primary {
+            background-color: #ff004f;
+            border-color: #ff004f;
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        /* Event Boxes */
+        .event-box {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-box:hover {
+            background: linear-gradient(180deg, transparent, #ff004f);
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-250px);
+            }
+
+            .toggle-btn {
+                display: block;
+                position: fixed;
+                left: 10px;
+                top: 15px;
+                z-index: 1000;
+                font-size: 30px;
+                cursor: pointer;
+                color: #ff004f;
+            }
+            .toggle-btn:hover {
+                display: block;
+                position: fixed;
+                left: 10px;
+                top: 15px;
+                z-index: 1000;
+                font-size: 30px;
+                cursor: pointer;
+                color: #ff004f;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 80px;
+                /* Adjust for navbar height */
+            }
+        }
+
+        .fa-bars{
+            color: white;
+            padding-right: 1.5rem;
+            font-size: 2rem;
+            
+        }
+
+        .dropdown-menu.show {
+            display: flex;
+            flex-direction: column;
+            background-color: #1f1f1f;
+            padding: 1rem;
+        }
+        .dropdown-menu a{
+            color: white;
+            text-decoration: none;
+            margin: 1rem;
+        }
+
+        .dropdown-menu a i{
+            margin-right: 1rem;
+        }
+        #home{
+            height: 700px;
+            padding-top: 20rem ;
+            margin-top: 0;
+           
+           
+        }
+        #about{
+            
+           
+            padding-top: 50px;
+            padding-bottom: 50px;
+            background: rgb(23, 22, 22);
+        }
+
+        #past-events{
+            padding-top: 50px;
+            padding-bottom: 50px;
+            
+        }
+
+        #upcoming-events{
+            padding-top: 50px;
+            padding-bottom: 50px;
+            background: rgb(23, 22, 22);
+        }
+
+        #services{
+            padding-top: 50px;
+        }
+
+        #contact{
+            padding-top: 50px;
+        }
+
+
+        .col-md-6 {
+            padding-right: 5.5rem;
+            padding-left: 5.5rem;
+            padding-bottom: 4.5rem;
+            flex: 0 0 auto;
+            width: 50%;
+        }
+
+#contact{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#contact h1{
+    padding-bottom: 2rem;
+}
+   
+    #contact-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    #contact-form input,textarea{
+        width: 25rem;
+        height: 3rem;
+        background: #333;
+        color: white;
+    }
+       
+    #contact-form textarea{
+        
+        height: 10rem;
+       
+    }
+#contact p{
+    color: #f0e1e5;
+}
+    .social-icons{
+        display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    
+    margin-bottom: 2rem;
+    }
+    .social-icons a{
+        text-decoration: none;
+        font-size: 2rem;
+       
+        color: #ababab;
+        display: inline-block;
+        transition: transform 0.5s;
+    }
+    
+    .social-icons a:hover{
+        color: #ff004f;
+        transform: translateY(-5px);
+    }
+    
+    </style>
+    <title>ROBOCEK</title>
+</head>
+
+<body>
+   
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+
+
+           
+                <a  data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-bars"></i></a>
+                <ul class="dropdown-menu">
+                    
+                        <a href="#home" class="menu-item active">
+                            <i class="fa fa-home"></i><span>Home</span>
+                        </a>
+                        <a href="#about" class="menu-item">
+                            <i class="fa fa-info-circle"></i><span>About</span>
+                        </a>
+                        <a href="#past-events" class="menu-item">
+                            <i class="fa-brands fa-elementor"></i><span>Past Events</span>
+                        </a>
+                        <a href="#upcoming-events" class="menu-item">
+                            <i class="fa-brands fa-elementor"></i><span>Upcoming Events</span>
+                        </a>
+                        <a href="#services" class="menu-item">
+                            <i class="fa fa-cogs"></i><span>services</span>
+                        </a>
+                        <a href="#contact" class="menu-item">
+                            <i class="fa fa-envelope"></i><span>Contact</span>
+                        </a>
+                        <a href="#loginModal" class="menu-item">
+                            <span>login</span>
+                        </a>
+                        <a href="#registerModal" class="menu-item">
+                           <span>register</span>
+                        </a>
+                    
+                </ul>
+              
+
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="ROBOCEK Logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link login-btn" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link register-btn" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                    </li>
+                </ul>
+                <form class="d-flex search-bar">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-danger"  type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    
+
+    <div class="main-content">
+        <section id="home">
+            <div class="container text-center">
+                <h1>Welcome to <span>ROBOCEK</span></h1>
+                <p>Your ultimate tech hub</p>
+            </div>
+        </section>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <section id="about" class="text-center">
+            <div class="container">
+                <h1>About Us</h1>
+                <br><br>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, eaque, autem perferendis veritatis iste tempore quos vero, beatae consectetur ea temporibus pariatur odio. Dolorum, ducimus. Eum quia deserunt unde inventore?
+                Commodi labore repellendus obcaecati cupiditate officia architecto fugit explicabo autem officiis quis maiores amet, rem sit reprehenderit accusantium reiciendis minima quod? Unde, sed adipisci? Quas laboriosam voluptas nobis sit obcaecati.
+               etur eum, accusantium aspernatur. At porro illum incidunt deleniti unde neque necessitatibus tempora dolores officia molestias.</p>
+            </div>
+        </section>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+        
+
+        <div class="container-fluid text-center" id="past-events">
+            <h1>Past Events</h1>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Past Event 1</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quo, cupiditate numquam odit et perferendis sapiente saepe earum repellendus veritatis eligendi obcaecati! Ad a, numquam nam ab sed ipsam sit!</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Know More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Past Event 1</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quo, cupiditate numquam odit et perferendis sapiente saepe earum repellendus veritatis eligendi obcaecati! Ad a, numquam nam ab sed ipsam sit!</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Know More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Past Event 1</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quo, cupiditate numquam odit et perferendis sapiente saepe earum repellendus veritatis eligendi obcaecati! Ad a, numquam nam ab sed ipsam sit!</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Know More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Past Event 1</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quo, cupiditate numquam odit et perferendis sapiente saepe earum repellendus veritatis eligendi obcaecati! Ad a, numquam nam ab sed ipsam sit!</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Know More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Past Event 1</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quo, cupiditate numquam odit et perferendis sapiente saepe earum repellendus veritatis eligendi obcaecati! Ad a, numquam nam ab sed ipsam sit!</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Know More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Past Event 1</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quo, cupiditate numquam odit et perferendis sapiente saepe earum repellendus veritatis eligendi obcaecati! Ad a, numquam nam ab sed ipsam sit!</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Know More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+       
+        <br>
+        <br>
+
+        <div class="container-fluid text-center" id="upcoming-events">
+            <h1>Upcoming Events</h1>
+            <br>
+            <br>
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Upcoming Event 2</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi velit dolorem non nemo sed porro repellendus quo iure pariatur inventore. Corrupti dignissimos sint iure sit commodi quod, tempora qui voluptas?
+                            Nobis vitae iusto quod velit aperiam atque, dolore harum provident voluptatem, repellat alias numquam esse error reprehenderit necessitatibus dolorem in dolorum ducimus quisquam libero magnam ipsam. Vero, unde aliquam. Impedit?</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Upcoming Event 2 Details">Know More</a>
+                        <a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#registrationModal" data-event="Upcoming Event 2 Registration">Register</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Upcoming Event 3</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi velit dolorem non nemo sed porro repellendus quo iure pariatur inventore. Corrupti dignissimos sint iure sit commodi quod, tempora qui voluptas?
+                            Nobis vitae iusto quod velit aperiam atque, dolore harum provident voluptatem, repellat alias numquam esse error reprehenderit necessitatibus dolorem in dolorum ducimus quisquam libero magnam ipsam. Vero, unde aliquam. Impedit?</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Upcoming Event 3 Details">Know More</a>
+                        <a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#registrationModal" data-event="Upcoming Event 3 Registration">Register</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="event-box">
+                        <h3>Upcoming Event 3</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi velit dolorem non nemo sed porro repellendus quo iure pariatur inventore. Corrupti dignissimos sint iure sit commodi quod, tempora qui voluptas?
+                            Nobis vitae iusto quod velit aperiam atque, dolore harum provident voluptatem, repellat alias numquam esse error reprehenderit necessitatibus dolorem in dolorum ducimus quisquam libero magnam ipsam. Vero, unde aliquam. Impedit?</p>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Upcoming Event 3 Details">Know More</a>
+                        <a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#registrationModal" data-event="Upcoming Event 3 Registration">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <section id="services" class="text-center">
+            <div class="container-fluid text-center">
+                <div class="row">
+                    <h1>Our Services</h1>
+                    <div class="col-md-4">
+                        <div class="event-box">
+                            <h3>Service 1</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Learn More</button>
+                        </div>   
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event-box">
+                            <h3>Service 2</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Learn More</button>
+                        </div>   
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event-box">
+                            <h3>Service 3</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventDetailsModal" data-event="Event 1 Details">Learn More</button>
+                        </div>   
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <section id="contact" class="text-center">
+            
+                <div class="container">
+                    <div class="row">
+                        
+                            <h1 class="sub-title">Contact Me</h1>
+                            <br><br>
+                                <p><i class="fa-solid fa-paper-plane"></i>Robocek@gmail.com</p>
+                                <p><i class="fa-solid fa-square-phone"></i>+911234567890</p>
+                                
+                                <div class="social-icons">
+                                    
+                                    <a href=""><i class="fa-brands fa-facebook"></i></a>
+                                    <a href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAAD2IjwQBci2ZYAmVb0WQaNLML34_7LJxxnw&keywords=k%20p%20aatmik&origin=RICH_QUERY_SUGGESTION&position=0&searchId=39fc4583-5956-4458-a142-bb3ad0d6e2fd&sid=RBu&spellCorrectionEnabled=false"><i class="fa-brands fa-linkedin"></i></a>
+                                    
+                                    <a href="https://www.instagram.com/aatmik7008/"><i class="fa-brands fa-instagram"></i></a>
+                                <a href=""> <i class="fa-brands fa-twitter"></i></a>
+                                </div>
+                                
+                        </div>
+        
+                        <div class="contact-right">
+                            <form id="contact-form">
+                                <input type="text" name="Name" placeholder="Your Name">
+                                <input type="email" name="email" placeholder="Your Email">
+                                <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                                <button class="btn btn-danger">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal fade" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal fade" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" >
+                    <form>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="registerPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="registerConfirmPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h5>ROBOCEK &copy; 2024</h5>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Toggle Sidebar
+            $('#toggleSidebar').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.sidebar').css('transform', 'translateX(0)');
+                } else {
+                    $('.sidebar').css('transform', 'translateX(-250px)');
+                }
+            });
+
+            // Close modals on form submission
+            $('.modal-content form').submit(function (event) {
+                event.preventDefault();
+                $(this).closest('.modal').modal('hide');
+            });
+
+            // Smooth scroll for sidebar menu items
+            $('.menu-item').click(function (event) {
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $($.attr(this, 'href')).offset().top - 70
+                }, 500);
+                $('.menu-item').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
